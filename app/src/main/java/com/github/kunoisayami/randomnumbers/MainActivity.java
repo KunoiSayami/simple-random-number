@@ -62,7 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 resultView.setText(group[random.nextInt(group.length)]);
             } else {
                 if (etNumber.getText().length() > 0) {
-                    resultView.setText(Integer.toString(random.nextInt(Integer.parseInt(etNumber.getText().toString())) + 1));
+                    var upper = Integer.parseInt(etNumber.getText().toString());
+
+                    if (upper < 0) {
+                        Toast.makeText(this, "Should input number> 0", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    resultView.setText(Integer.toString(random.nextInt(upper) + 1));
+
                 }
                 else {
                     Toast.makeText(this, "Should enter a number", Toast.LENGTH_SHORT).show();
