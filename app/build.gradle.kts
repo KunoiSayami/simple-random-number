@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
 }
 
+
+//apply( rootProject.file("keys.properties.gradle.kts"))
+
 android {
     namespace = "com.github.kunoisayami.randomnumbers"
     compileSdk = 34
@@ -12,8 +15,16 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+    }
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    signingConfigs {
+
+        create("release") {
+            storePassword = rootProject.extra.get("StorePassword") as String
+            keyPassword = rootProject.extra.get("KeyPassword") as String
+            storeFile = file(rootProject.extra.get("KeyStoreFile") as String)
+            keyAlias = "key0"
+        }
     }
 
     buildTypes {
@@ -34,7 +45,7 @@ android {
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
