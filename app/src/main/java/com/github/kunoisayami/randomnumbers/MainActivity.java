@@ -3,6 +3,9 @@ package com.github.kunoisayami.randomnumbers;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -80,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+        });
+
+        resultView.setOnClickListener(v -> {
+            var text = resultView.getText();
+            if (text.toString().isEmpty()) {
+                return ;
+            }
+            var clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Result", text);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show();
         });
 
         btnReset.setOnClickListener(v -> {
