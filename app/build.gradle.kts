@@ -15,31 +15,39 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        resourceConfigurations.addAll(listOf("en"))
+        ndk {
+            abiFilters.addAll(listOf("armeabi", "armeabi-v7a"))
+        }
     }
 
     signingConfigs {
 
         create("release") {
+            keyAlias = "key0"
             storePassword = rootProject.extra.get("StorePassword") as String
             keyPassword = rootProject.extra.get("KeyPassword") as String
             storeFile = file(rootProject.extra.get("KeyStoreFile") as String)
-            keyAlias = "key0"
         }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            //isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
 }
 
 dependencies {
