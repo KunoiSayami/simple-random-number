@@ -50,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
             etNumber.setEnabled(R.id.radioNumber == checkedId);
             etText.setEnabled(R.id.radioString == checkedId);
 
-        });
+            if (R.id.radioNumber == checkedId) {
+                etNumber.requestFocus();
+            } else {
+                etText.requestFocus();
+            }
 
-        etText.setText("");
+        });
 
         btnStart.setOnClickListener(v -> {
             Random random = new Random();
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 if (etNumber.getText().length() > 0) {
                     var upper = Integer.parseInt(etNumber.getText().toString());
 
-                    if (upper < 0) {
+                    if (upper <= 0) {
                         Toast.makeText(this, "Should input number> 0", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnReset.setOnClickListener(v -> {
             etText.setText("");
-            etNumber.setText("0");
+            etNumber.setText("1");
             resultView.setText("");
         });
     }
