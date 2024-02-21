@@ -1,18 +1,18 @@
 package com.github.kunoisayami.randomnumbers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.Random;
 
@@ -20,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "RandomNumberMain";
 
-    private  TextView resultView ;
+    private TextView resultView, versionView;
 
-    private  EditText etNumber , etText ;
+    private EditText etNumber, etText;
 
 
-    private  Button btnReset, btnStart;
+    private Button btnReset, btnStart;
 
-    private  RadioGroup radioGroup;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void init() {
-        resultView =  findViewById(R.id.textResult);
+        resultView = findViewById(R.id.textResult);
         etNumber = findViewById(R.id.editNumber);
-        etText =  findViewById(R.id.editTexts);
-        btnReset  = findViewById(R.id.buttonReset);
+        etText = findViewById(R.id.editTexts);
+        btnReset = findViewById(R.id.buttonReset);
         btnStart = findViewById(R.id.buttonStart);
+        versionView = findViewById(R.id.textVersion);
+        // https://stackoverflow.com/a/21119027
+        versionView.setText("version: " + BuildConfig.VERSION_NAME);
 
-        radioGroup  = findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
 
         etText.setEnabled(false);
 
@@ -77,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     resultView.setText(Integer.toString(random.nextInt(upper) + 1));
 
-                }
-                else {
+                } else {
                     Toast.makeText(this, "Should enter a number", Toast.LENGTH_SHORT).show();
                 }
 
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         resultView.setOnClickListener(v -> {
             var text = resultView.getText();
             if (text.toString().isEmpty()) {
-                return ;
+                return;
             }
             var clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("Result", text);

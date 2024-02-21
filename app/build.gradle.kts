@@ -13,8 +13,8 @@ android {
         applicationId = "com.github.kunoisayami.randomnumbers"
         minSdk = 29
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = 5
+        versionName = "1.2.0"
         resourceConfigurations.addAll(listOf("en"))
         /*ndk {
             abiFilters.addAll(listOf("armeabi", "armeabi-v7a"))
@@ -48,6 +48,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    // https://stackoverflow.com/a/66195950
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
