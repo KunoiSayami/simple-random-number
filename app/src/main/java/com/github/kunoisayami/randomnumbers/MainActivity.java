@@ -1,11 +1,12 @@
 package com.github.kunoisayami.randomnumbers;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -102,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
             etText.setText("");
             etNumber.setText("1");
             resultView.setText("");
+        });
+
+        versionView.setOnLongClickListener(v -> {
+            var intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KunoiSayami/simple-random-number"));
+            startActivity(intent);
+            return false;
         });
     }
 }
